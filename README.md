@@ -4,6 +4,8 @@ Allow you to convert simple buttons into a useful buttons with double click conf
 
 ## Examples:
 
+Visit the codepen of the sample: http://codepen.io/anon/pen/eNzByV
+
 ### Basic:
 
 	$('button').AutoConfirmButton();
