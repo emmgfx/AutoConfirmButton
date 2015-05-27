@@ -39,7 +39,10 @@ Blog: http://www.emm-gfx.net
             classStandby:       'btn-warning',
             disableOnConfirm:   true,
             cancelTime:         2000,
-            onConfirm:          function(element){}
+            onFirstClickBefore: function(element){},
+            onFirstClickAfter:	function(element){},
+            onConfirm:          function(element){},
+            allowFirstClick:	true
         }, options );
         
 		this.each(function() {
@@ -63,21 +66,28 @@ Blog: http://www.emm-gfx.net
 
         		}else{
             		
-        			btn.data("clicked","true")
-        			   .removeClass(settings.classStandby)
-        			   .addClass(settings.classConfirm)
-        			   .data("text",btn.text())
-        			   .text(settings.textConfirm);
-        				
-        			var retorno = setTimeout(function(){
-        				if(btn.data("clicked") == "true"){
-        					btn.data("clicked","false");
-        					btn.removeClass(settings.classConfirm)
-        					   .addClass(settings.classStandby)
-        					   .text(btn.data('text'));
-        				}
-        			}, settings.cancelTime);
-        			
+            		settings.onFirstClickBefore(btn);
+            		
+            		if(settings.allowFirstClick){
+            		
+            			btn.data("clicked","true")
+            			   .removeClass(settings.classStandby)
+            			   .addClass(settings.classConfirm)
+            			   .data("text",btn.text())
+            			   .text(settings.textConfirm);
+            				
+            			var retorno = setTimeout(function(){
+            				if(btn.data("clicked") == "true"){
+            					btn.data("clicked","false");
+            					btn.removeClass(settings.classConfirm)
+            					   .addClass(settings.classStandby)
+            					   .text(btn.data('text'));
+            				}
+            			}, settings.cancelTime);
+            			
+                        settings.onFirstClickAfter(btn);
+                        
+        			}
         		}
         		
         		return false;
